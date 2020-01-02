@@ -1,7 +1,9 @@
+![alt text](http://url/to/img.png)
+
 ### Requirements
 
-JDK >= 11
-Maven >= 3.6
+* JDK >= 11
+* Maven >= 3.6
 
 ### Building
 
