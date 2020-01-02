@@ -1,3 +1,5 @@
+The repo name says it all...
+
 ![screenshot](https://github.com/toby1984/jpacman/blob/master/screenshot.png)
 
 ### Requirements
