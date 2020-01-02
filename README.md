@@ -1,4 +1,4 @@
-![alt text](http://url/to/img.png)
+![screenshot](https://github.com/toby1984/jpacman/blob/master/screenshot.png)
 
 ### Requirements
 
