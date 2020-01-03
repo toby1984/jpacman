@@ -12,7 +12,7 @@ public class PlayingField extends AbstractPanel
     private static final int TICKS_PER_ANIMATION_STATE = 2;
     private static final int ANIMATION_STATE_COUNT = 7;
 
-    private static final boolean DRAW_HIGHLIGHT = false;
+    private static final boolean DRAW_HIGHLIGHT = true;
 
     private static final AffineTransform IDENTITY = new AffineTransform();
 
@@ -104,13 +104,22 @@ public class PlayingField extends AbstractPanel
         lines.forEach(l -> drawLine(l, g));
 
         // draw dots
-        g.setColor(Color.WHITE);
         for (DotGrid.Dot p : state.dots.dots)
         {
             if ( ! p.isEaten )
             {
                 final Point x = gridToView(p);
-                g.drawRect(x.x - 1, x.y - 1, 2, 2);
+                if ( p.isEnergizer )
+                {
+                    g.setColor(Color.PINK);
+                    int w = (int) Math.min(stepX,stepY);
+                    g.fillArc(x.x - w/2, x.y - w/2, w, w,0,360);
+                }
+                else
+                {
+                    g.setColor(Color.WHITE);
+                    g.drawRect(x.x - 1, x.y - 1, 2, 2);
+                }
             }
         }
 

@@ -2,9 +2,9 @@ package de.codesourcery.jpacman;
 
 import java.awt.Point;
 
-public class Entity
+public abstract class Entity
 {
-    public final PlayerLocation location = new PlayerLocation();
+    public final LocationInfo location = new LocationInfo();
     public NavGrid.Direction orientation = NavGrid.Direction.UP;
     public boolean isMoving;
 
@@ -27,4 +27,6 @@ public class Entity
         int maxY = Math.max(location.currentLine.start.y, location.currentLine.end.y );
         return new Point( location.currentLine.start.x,  minY + Math.round( (maxY-minY) * position ) );
     }
+
+    public abstract void reset();
 }

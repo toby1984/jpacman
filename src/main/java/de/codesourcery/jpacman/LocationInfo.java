@@ -1,6 +1,6 @@
 package de.codesourcery.jpacman;
 
-public class PlayerLocation
+public class LocationInfo
 {
     public Line currentLine;
 
@@ -28,7 +28,7 @@ public class PlayerLocation
     @Override
     public String toString()
     {
-        return "PlayerLocation{" +
+        return "LocationInfo{" +
                    "currentLine=" + currentLine +
                    ", position=" + position +
                    '}';

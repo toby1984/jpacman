@@ -7,20 +7,27 @@ import java.util.List;
 
 public class DotGrid
 {
-    public List<Dot> dots = new ArrayList<>();
+    public final List<Dot> dots = new ArrayList<>();
 
     public static final class Dot extends Point
     {
+        public final boolean isEnergizer;
         public boolean isEaten;
 
-        public Dot(int x,int y) {
+        public Dot(int x,int y,boolean isEnergizer) {
             super(x,y);
+            this.isEnergizer = isEnergizer;
         }
     }
 
     public DotGrid()
     {
         reset();
+    }
+
+    public boolean allEaten()
+    {
+        return dots.stream().allMatch(x -> x.isEaten);
     }
 
     public void reset()
@@ -34,9 +41,14 @@ public class DotGrid
             String line;
             while ( ( line = reader.readLine() ) != null) {
                 final String[] parts = line.split(",");
+                boolean isEnergizer = false;
                 int x = Integer.parseInt(parts[0]);
                 int y = Integer.parseInt(parts[1]);
-                dots.add(new Dot(x, y));
+                if ( parts.length > 2 ) {
+                    System.out.println("Energizer @ "+x+","+y);
+                    isEnergizer = true;
+                }
+                dots.add(new Dot(x, y, isEnergizer));
             }
         }
         catch (IOException e)
@@ -45,19 +57,19 @@ public class DotGrid
         }
     }
 
-    public boolean consume(Point p)
+    public Dot consume(Point p)
     {
         for ( Dot d : dots )
         {
             if ( d.x == p.x && d.y == p.y )
             {
                 if ( d.isEaten ) {
-                    return false;
+                    return null;
                 }
                 d.isEaten = true;
-                return true;
+                return d;
             }
         }
-        return false;
+        return null;
     }
 }

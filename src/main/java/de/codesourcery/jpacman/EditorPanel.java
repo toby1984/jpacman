@@ -132,7 +132,7 @@ public class EditorPanel extends AbstractPanel
     public static List<Line> loadLines() throws IOException
     {
         List<Line> lines = new ArrayList<>();
-        File file = new File("/home/tobi/intellij_workspace/jpackman/src/main/resources/lines.txt");
+        File file = new File("/home/tobi/intellij_workspace/jpacman/src/main/resources/lines.txt");
         List<String> rows = Files.readAllLines(file.toPath());
         for ( String l : rows ) {
             final String[] parts = l.split(",");

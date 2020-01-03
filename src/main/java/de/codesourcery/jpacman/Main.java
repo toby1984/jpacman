@@ -5,6 +5,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
@@ -43,10 +45,22 @@ public class Main extends JFrame
         pack();
         setVisible(true);
 
-        final Timer t = new Timer(16, ev ->
+        final Timer t = new Timer(16, new ActionListener()
         {
-            state.tick(panel.userInput);
-            panel.repaint();
+            private long lastTick;
+            @Override
+            public void actionPerformed(ActionEvent ev)
+            {
+                final long now = System.currentTimeMillis();
+                if ( lastTick != 0 )
+                {
+                    float elapsedSeconds = (now - lastTick ) / 1000f;
+                    state.tick(panel.userInput,elapsedSeconds);
+                } else {
+                    lastTick = now;
+                }
+                panel.repaint();
+            }
         });
         t.start();
     }
