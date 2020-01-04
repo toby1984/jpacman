@@ -97,65 +97,6 @@ public class NavGrid
         }
     }
 
-    public boolean canSwitchLines(Point currentPos)
-    {
-        return getLines(currentPos).size() > 1;
-    }
-
-    public Set<Direction> getAvailableDirections(Point currentPos)
-    {
-        List<Line> matches = getLines(currentPos);
-        List<Line> endpoints = matches.stream().filter( x -> x.isEndpoint(currentPos ) ).collect(Collectors.toList());
-
-        final Set<Direction> result = new HashSet<>(4);
-        if ( endpoints.size() > 1 ) {
-
-        } else if ( endpoints.size() == 1 ) {
-
-        } else {
-            // not on an endpoint
-            if ( matches.size() != 1 ) {
-                throw new IllegalStateException();
-            }
-
-            final Line l = matches.get(0);
-            Point p0 = l.min();
-            Point p1 = l.max();
-            if ( l.isHoriz() )
-            {
-                if ( p0.x == currentPos.x )
-                {
-                    result.add( Direction.RIGHT );
-                }
-                else if ( p1.x == currentPos.x )
-                {
-                    result.add(Direction.LEFT);
-                }
-                else
-                {
-                    result.add(Direction.LEFT);
-                    result.add(Direction.RIGHT);
-                }
-            } else {
-                if ( p0.y == currentPos.y )
-                {
-                    result.add( Direction.DOWN );
-                }
-                else if ( p1.y == currentPos.y )
-                {
-                    result.add(Direction.UP);
-                }
-                else
-                {
-                    result.add(Direction.UP);
-                    result.add(Direction.DOWN);
-                }
-            }
-
-        }
-        return result;
-    }
-
     public List<Line> getLines(Point currentPos)
     {
         return lines.stream().filter(l -> l.contains(currentPos)).collect(Collectors.toList());

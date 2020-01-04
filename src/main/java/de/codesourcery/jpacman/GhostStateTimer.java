@@ -96,34 +96,42 @@ and the following Scatter mode lasts just 1/60 of a second before the ghosts pro
  even though it may seem that switching modes for such an insignificant amount of time is pointless,
  there is a reason behind it, which shall be revealed shortly.
      */
+        StateTransition result;
         if ( level == 1 )
         {
-            return new StateTransition(Ghost.Mode.SCATTER, 7)
-                             .andThen(new StateTransition(Ghost.Mode.CHASING, 20))
-                             .andThen(new StateTransition(Ghost.Mode.SCATTER, 7))
-                             .andThen(new StateTransition(Ghost.Mode.CHASING, 20))
-                             .andThen(new StateTransition(Ghost.Mode.SCATTER, 5))
-                             .andThen(new StateTransition(Ghost.Mode.CHASING, 20))
-                             .andThen(new StateTransition(Ghost.Mode.SCATTER, 5))
-                             .andThen(new PermanentChase());
+            result = new StateTransition(Ghost.Mode.SCATTER, 7);
+            result
+                .andThen(new StateTransition(Ghost.Mode.CHASING, 20))
+                .andThen(new StateTransition(Ghost.Mode.SCATTER, 7))
+                .andThen(new StateTransition(Ghost.Mode.CHASING, 20))
+                .andThen(new StateTransition(Ghost.Mode.SCATTER, 5))
+                .andThen(new StateTransition(Ghost.Mode.CHASING, 20))
+                .andThen(new StateTransition(Ghost.Mode.SCATTER, 5))
+                .andThen(new PermanentChase());
         }
-        if ( level < 5 ) {
-            return new StateTransition(Ghost.Mode.SCATTER, 7)
-                             .andThen(new StateTransition(Ghost.Mode.CHASING, 20))
-                             .andThen(new StateTransition(Ghost.Mode.SCATTER, 7))
-                             .andThen(new StateTransition(Ghost.Mode.CHASING, 20))
-                             .andThen(new StateTransition(Ghost.Mode.SCATTER, 5))
-                             .andThen(new StateTransition(Ghost.Mode.CHASING, 1033))
-                             .andThen(new StateTransition(Ghost.Mode.SCATTER, 1/60f))
-                             .andThen(new PermanentChase());
+        else if ( level < 5 ) {
+            result = new StateTransition(Ghost.Mode.SCATTER, 7);
+
+            result           .andThen(new StateTransition(Ghost.Mode.CHASING, 20))
+                .andThen(new StateTransition(Ghost.Mode.SCATTER, 7))
+                .andThen(new StateTransition(Ghost.Mode.CHASING, 20))
+                .andThen(new StateTransition(Ghost.Mode.SCATTER, 5))
+                .andThen(new StateTransition(Ghost.Mode.CHASING, 1033))
+                .andThen(new StateTransition(Ghost.Mode.SCATTER, 1/60f))
+                .andThen(new PermanentChase());
         }
-        return new StateTransition(Ghost.Mode.SCATTER, 5)
-                         .andThen(new StateTransition(Ghost.Mode.CHASING, 20))
-                         .andThen(new StateTransition(Ghost.Mode.SCATTER, 5))
-                         .andThen(new StateTransition(Ghost.Mode.CHASING, 20))
-                         .andThen(new StateTransition(Ghost.Mode.SCATTER, 5))
-                         .andThen(new StateTransition(Ghost.Mode.CHASING, 1037))
-                         .andThen(new StateTransition(Ghost.Mode.SCATTER, 1/60f))
-                         .andThen(new PermanentChase());
+        else
+        {
+            result = new StateTransition(Ghost.Mode.SCATTER, 5);
+            result
+                .andThen(new StateTransition(Ghost.Mode.CHASING, 20))
+                .andThen(new StateTransition(Ghost.Mode.SCATTER, 5))
+                .andThen(new StateTransition(Ghost.Mode.CHASING, 20))
+                .andThen(new StateTransition(Ghost.Mode.SCATTER, 5))
+                .andThen(new StateTransition(Ghost.Mode.CHASING, 1037))
+                .andThen(new StateTransition(Ghost.Mode.SCATTER, 1 / 60f))
+                .andThen(new PermanentChase());
+        }
+        return result;
     }
 }
